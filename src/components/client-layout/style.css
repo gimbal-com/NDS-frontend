@@ -128,10 +128,21 @@
     margin-bottom: 16px;
 }
 
+.job-files-container {
+    flex: 1;
+}
+
 .job-edit-main .job-folders-container {
     width: 300px;
     min-height: 300px;
     border-right: 1px solid rgba(0,0,0,0.1);
     margin-right: 16px;
     padding-right: 16px;
+}
+
+.job-folders-header, .job-files-header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
 }

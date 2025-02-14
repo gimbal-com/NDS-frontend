@@ -1,7 +1,8 @@
 import { AimOutlined, DashboardOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Dropdown, Menu } from "antd";
-import { useSelector } from "react-redux";
+import { Avatar, Dropdown, Menu } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { logout } from "../../store/user/userSlice";
 
 import './style.css';
 
@@ -28,6 +29,7 @@ const authMenuItems = [
 
 const ClientLayout = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const userInfo = useSelector(store => store.user.user);
 
@@ -38,7 +40,10 @@ const ClientLayout = () => {
     }
 
     const handleAuthMenuItemClick = ({item, key}) => {
-        console.log(item, key);
+        if(key === 'logout') {
+            dispatch(logout());
+            navigate('/');
+        }
     }
 
     return (
