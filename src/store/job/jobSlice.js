@@ -108,16 +108,25 @@ export const getJobDetailByClient = createAsyncThunk('jobs/getJobDetailByClient'
 //     }
 // });
 
-// export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', async (_, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.get(`/api/pilot/jobs`);
-//         console.log(response.data);
+export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', async (_, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/pilot/jobs`);
+        console.log(response.data);
         
-//         return response.data;
-//     } catch (err: any) {
-//         return rejectWithValue(err);
-//     }
-// });
+        return response.data;
+    } catch (err) {
+        return rejectWithValue(err);
+    }
+});
+
+export const getJobDetailByPliot = createAsyncThunk(`jobs/getJobDetailByPilot`, async (jobId, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/pilot/jobs/${jobId}`);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue('Failed to get job detail');
+    }
+});
 
 const jobSlice = createSlice({
     name: 'job',
@@ -156,9 +165,14 @@ const jobSlice = createSlice({
             // .addCase(getJobListByAdmin.fulfilled, (state, action) => {
             //     state.jobList = action.payload.jobs;
             // })
-            // .addCase(getJobListByPilot.fulfilled, (state, action) => {
-            //     state.jobList = action.payload.jobs;
-            // })
+            .addCase(getJobListByPilot.fulfilled, (state, action) => {
+                state.jobList = action.payload.jobs;
+            })
+            .addCase(getJobDetailByPliot.fulfilled, (state, action) => {
+                state.jobDetail = action.payload.job;
+                state.loading = false;
+                state.error = null;
+            })
     }
 })
 
