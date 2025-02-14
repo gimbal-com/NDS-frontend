@@ -1,0 +1,148 @@
+.client-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 300px;
+    height: 100%;
+    overflow: auto;
+    padding: 16px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.sidebar>.ant-menu {
+    border-inline-end: none !important;
+    background-color: transparent;
+}
+
+.logo {
+    padding-bottom: 16px;
+    width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logo>img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0px 16px;
+    box-shadow: 2px 2px 2px grey;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.auth {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.auth-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+}
+
+.auth-info>.name {
+    font-size: 14px;
+}
+
+.auth-info>.email {
+    font-size: 12px;
+}
+
+.container {
+    padding: 16px;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.page-header>.sub-title {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.job-new-content {
+    display: flex;
+}
+
+.job-new-form {
+    width: 360px;
+    margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-new-map {
+    flex: 1;
+    height: 300px;
+}
+
+.job-new-map-container {
+    height: 300px;
+}
+
+.job-input {
+    margin: 8px 0px;
+    width: 100%;
+}
+
+.job-claim-button {
+    margin-top: 150px;
+}
+
+.job-edit-content .job-edit-main {
+    display: flex;
+}
+
+.job-folders-container>span,
+.job-files-container>span {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.job-edit-main .job-folders-container {
+    width: 300px;
+    min-height: 300px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    margin-right: 16px;
+    padding-right: 16px;
+}
+
+.job-detail-title {
+    width: 30%;
+    font-size: 20px;
+}
+
+.job-detail-content {
+    width: 70%;
+    font-size: 20px;
+}

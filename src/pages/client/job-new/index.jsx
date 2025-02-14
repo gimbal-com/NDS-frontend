@@ -23,8 +23,8 @@ const ClientJobNewPage = () => {
     const user = useSelector(store => store.user.user);
 
     const handleSubmit = () => {
-        if(title && description && address && budget) {
-            dispatch(createJobByClient({title, description, address, budget, geometry: JSON.stringify(geometry), userId: user._id}));
+        if (title && description && address && budget) {
+            dispatch(createJobByClient({ title, description, address, budget, geometry: JSON.stringify(geometry), userId: user._id }));
             setAddress("");
             setTitle("");
             setDecsription("");
@@ -37,6 +37,8 @@ const ClientJobNewPage = () => {
 
     const handleAddressChange = (e) => {
         let addr = e.target.value;
+        console.log("daddsdfsfsf", addr);
+
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(addr)}.json?country=us&access_token=${import.meta.env.VITE_PUBLIC_MAPBOX_TOKEN}`;
 
         fetch(url)
@@ -54,9 +56,10 @@ const ClientJobNewPage = () => {
 
                         // Don't overwrite the user's current input; append only the completed part
                         setAddress(address + completion);
+                        console.log("sdfsfsfs", completion);
 
                         // Restore the cursor position to where the user was typing
-                        map.flyTo({center: features[0].geometry.coordinates, zoom: 10});
+                        map.flyTo({ center: features[0].geometry.coordinates, zoom: 10 });
                     }
                 }
             })

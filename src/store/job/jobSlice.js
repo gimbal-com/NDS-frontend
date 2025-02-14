@@ -101,7 +101,7 @@ export const getJobDetailByClient = createAsyncThunk('jobs/getJobDetailByClient'
 //     try {
 //         const response = await axiosInstance.get(`/api/admin/jobs`);
 //         console.log(response.data);
-        
+
 //         return response.data;
 //     } catch (err: any) {
 //         return rejectWithValue(err);
@@ -112,7 +112,7 @@ export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', asyn
     try {
         const response = await axiosInstance.get(`/api/pilot/jobs`);
         console.log(response.data);
-        
+
         return response.data;
     } catch (err) {
         return rejectWithValue(err);

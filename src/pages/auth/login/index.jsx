@@ -12,12 +12,12 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
 
     const handleSubmit = async () => {
-        if(username && password) {
-            let response = await dispatch(login({username, password}));
-            
-            if(login.fulfilled.match(response)) {
+        if (username && password) {
+            let response = await dispatch(login({ username, password }));
+
+            if (login.fulfilled.match(response)) {
                 message.success("You are signed in successfully.");
-                // navigate('/auth/login');
+                // navigate('/pilot/job-list');
             }
         } else {
             message.info("Please input all fields.");
@@ -30,12 +30,12 @@ const LoginPage = () => {
             <Input onChange={e => setUsername(e.target.value)} placeholder="Username" className="auth-input" value={username} />
             <Input.Password onChange={e => setPassword(e.target.value)} placeholder="Password" className="auth-input" value={password} />
             <p className="auth-tip">
-                Haven't account yet? 
-                <Link style={{marginLeft: 8}} to={'/auth/register'}>Register</Link>
+                Haven't account yet?
+                <Link style={{ marginLeft: 8 }} to={'/auth/register'}>Register</Link>
             </p>
             <Button className="auth-submit-btn" type="primary" onClick={handleSubmit}>Submit</Button>
         </div>
     )
-} 
+}
 
 export default LoginPage;

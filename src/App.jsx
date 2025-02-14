@@ -10,14 +10,16 @@ import ClientLayout from "./components/client-layout";
 import ClientJobListPage from "./pages/client/job-list";
 import ClientJobNewPage from "./pages/client/job-new";
 import ClientJobEditPage from "./pages/client/job-edit";
-
+import PilotLayout from "./components/pilot-layout";
+import PilotJobListPage from "./pages/pilot/job-list";
+import PilotJobDetail from "./pages/pilot/job-detail";
 
 const App = () => {
 
   const dispatch = useDispatch();
 
   let token = localStorage.getItem("token") || "";
-  if(token) {
+  if (token) {
     dispatch(refresh(token));
   }
 
@@ -56,6 +58,20 @@ const App = () => {
           path: '/client/claims',
           element: <h1>Claim List</h1>
         },
+      ]
+    },
+    {
+      path: '/pilot',
+      element: <PilotLayout />,
+      children: [
+        {
+          path: '/pilot/jobs',
+          element: <PilotJobListPage />
+        },
+        {
+          path: '/pilot/jobs/:id',
+          element: <PilotJobDetail />
+        }
       ]
     },
     {
