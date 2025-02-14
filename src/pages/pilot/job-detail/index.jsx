@@ -44,34 +44,6 @@ const PilotJobDetail = () => {
     setIsClaimDialogOpen(false);
   }
 
-  const handleAddressChange = (e) => {
-    let addr = e;
-
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(addr)}.json?country=us&access_token=${import.meta.env.VITE_PUBLIC_MAPBOX_TOKEN}`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const features = data.features;
-
-        if (features.length > 0) {
-          const firstSuggestion = features[0].place_name;
-          console.log("@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>");
-
-
-          // Check if the first suggestion starts with the user's current input
-          if (firstSuggestion.toLowerCase().startsWith(addr.toLowerCase())) {
-
-            // Restore the cursor position to where the user was typing
-            map.flyTo({ center: features[0].geometry.coordinates, zoom: 10 });
-          }
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }
-
   // useEffect hook for initializing the map and Mapbox Draw tool
   useEffect(() => {
     const node = mapNode.current;                                               // Get the map container DOM node
@@ -92,6 +64,7 @@ const PilotJobDetail = () => {
     if (id) {
       dispatch(getJobDetailByPliot(id));
     }// Set the map instance in state
+    console.log("1");
 
     return () => {
       mapboxMap.remove();                                                     // Cleanup the map on component unmount
@@ -99,13 +72,34 @@ const PilotJobDetail = () => {
   }, []);
 
   useEffect(() => {
-    if (jobDetail.j_address !== undefined) {
+    if (jobDetail.j_address !== undefined && map !== undefined) {
+
+      const address = jobDetail.j_address
       setCClaimer(userId);
       setCJob(jobDetail._id);
       setCJobOwner(jobDetail.j_creator._id)
-      handleAddressChange(jobDetail.j_address);
+      const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?country=us&access_token=${import.meta.env.VITE_PUBLIC_MAPBOX_TOKEN}`;
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          const features = data.features;
+
+          if (features.length > 0) {
+            const firstSuggestion = features[0].place_name;
+            // Check if the first suggestion starts with the user's current input
+            if (firstSuggestion.toLowerCase().startsWith(address.toLowerCase())) {
+
+              // Restore the cursor position to where the user was typing
+              map.flyTo({ center: features[0].geometry.coordinates, zoom: 10 });
+            }
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
     }
-  }, [jobDetail]);
+  }, [jobDetail, map]);
 
   return (
     <div className="container">
