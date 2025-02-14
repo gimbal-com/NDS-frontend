@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './user/userSlice';
+import jobReducer from './job/jobSlice';
 
 const store = configureStore({
     reducer: {
-        user: userReducer
+        user: userReducer,
+        job: jobReducer
     }
 })
 

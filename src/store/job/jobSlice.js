@@ -125,10 +125,10 @@ const jobSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(createJob.fulfilled, (state, action) => {
+            .addCase(createJobByClient.fulfilled, (state, action) => {
                 state.loading = false;
             })
-            .addCase(getJobList.fulfilled, (state, action) => {
+            .addCase(getJobListByClient.fulfilled, (state, action) => {
                 state.jobList = action.payload.jobs;
                 state.loading = false;
                 state.error = null;
