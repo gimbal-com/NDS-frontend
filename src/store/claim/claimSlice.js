@@ -11,7 +11,7 @@ const initialState = {
 //Async Redux Action to call POST /api/jobs API to create a new job
 export const createClaimByPilot = createAsyncThunk('jobs/createClaimByPilot', async (claimData, { rejectWithValue }) => {
   try {
-    const response = await axiosInstance.post(`/api/client/jobs`, claimData);
+    const response = await axiosInstance.post(`/api/pilot/claim/new`, claimData);
     message.success(response.data.message);
     return response.data;
   } catch (error) {
@@ -27,7 +27,6 @@ const claimSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createClaimByPilot.fulfilled, (state, action) => {
-        state.claimList = action.payload.jobs;
         state.loading = false;
         state.error = null;
       })

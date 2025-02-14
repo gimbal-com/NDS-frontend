@@ -8,8 +8,8 @@ import mapboxgl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import "mapbox-gl/dist/mapbox-gl.css";
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-import { createJobByClient, getJobDetailByPliot } from "../../../store/job/jobSlice";
-
+import { getJobDetailByPliot } from "../../../store/job/jobSlice";
+import { createClaimByPilot } from "../../../store/claim/claimSlice";
 const PilotJobDetail = () => {
 
   const { id } = useParams();
@@ -20,10 +20,10 @@ const PilotJobDetail = () => {
   const [map, setMap] = useState();
   const [isClaimDialogOpen, setIsClaimDialogOpen] = useState(false);
 
-  const [jobCreatorId, setJobCreatorId] = useState('');
-  const [jobId, setJobId] = useState('');
-  const [claimContent, setClaimContent] = useState('');
-  const [claimerId, setClaimerId] = useState('');
+  const [c_job_owner, setCJobOwner] = useState('');
+  const [c_job, setCJob] = useState('');
+  const [c_content, setCContent] = useState('');
+  const [c_claimer, setCClaimer] = useState('');
 
   const mapNode = useRef(null);
 
@@ -35,8 +35,9 @@ const PilotJobDetail = () => {
   }
 
   const handleSubmit = () => {
-    if (jobCreatorId && jobId && claimContent && claimerId) {
-      dispatch(createJobByClient({ jobCreatorId, jobId, claimContent, claimerId }));
+    if (c_job_owner && c_job && c_content && c_claimer) {
+      dispatch(createClaimByPilot({ c_job_owner, c_job, c_content, c_claimer }));
+      setCContent('');
     } else {
       message.warning("Please input claim content");
     }
@@ -99,9 +100,9 @@ const PilotJobDetail = () => {
 
   useEffect(() => {
     if (jobDetail.j_address !== undefined) {
-      setClaimerId(userId);
-      setJobId(jobDetail._id);
-      setJobCreatorId(jobDetail.j_creator.u_email)
+      setCClaimer(userId);
+      setCJob(jobDetail._id);
+      setCJobOwner(jobDetail.j_creator._id)
       handleAddressChange(jobDetail.j_address);
     }
   }, [jobDetail]);
@@ -158,10 +159,10 @@ const PilotJobDetail = () => {
         onCancel={() => setIsClaimDialogOpen(false)}
       >
         <Input.TextArea
-          value={claimContent}
+          value={c_content}
           className="job-input"
           placeholder="Job Description"
-          onChange={e => setClaimContent(e.target.value)}
+          onChange={e => setCContent(e.target.value)}
           rows={4}
         />
       </Modal>
