@@ -2,7 +2,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
 import { getJobListByClient } from "../../../store/job/jobSlice";
 
@@ -10,6 +10,7 @@ const ClientJobListPage = () => {
     const jobList = useSelector(store => store.job.jobList);
     const userId = useSelector(store => store.user.user._id);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const columns = [
         {
@@ -62,6 +63,13 @@ const ClientJobListPage = () => {
                     dataSource={jobList || []}
                     columns={columns}
                     rowKey={row => row._id}
+                    onRow={(record, index) => {
+                        return {
+                            onClick: () => {
+                                navigate(`/client/jobs/${record._id}`)
+                            }
+                        }
+                    }}
                 />
             </div>
         </div>

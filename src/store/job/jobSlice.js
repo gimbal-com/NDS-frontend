@@ -33,15 +33,15 @@ export const getJobListByClient = createAsyncThunk('jobs/getJobList', async (use
     }
 });
 
-// //Async Redux Action to call GET /api/jobs API to get jobDetail
-// export const getJobDetail = createAsyncThunk('jobs/getJobDetail', async (jobId: number, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.get(`/api/client/jobs/${jobId}`);
-//         return response.data;
-//     } catch (error: any) {
-//         return rejectWithValue('Failed to get job detail');
-//     }
-// });
+//Async Redux Action to call GET /api/jobs API to get jobDetail
+export const getJobDetailByClient = createAsyncThunk('jobs/getJobDetailByClient', async (jobId, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/client/jobs/${jobId}`);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue('Failed to get job detail');
+    }
+});
 
 // //Async Redux Action to call GET /api/jobs API to get Folder by JobId
 // export const getFoldersByJobId = createAsyncThunk('jobs/getFoldersByJobId', async (jobId: number, { rejectWithValue }) => {
@@ -133,11 +133,11 @@ const jobSlice = createSlice({
                 state.loading = false;
                 state.error = null;
             })
-            // .addCase(getJobDetail.fulfilled, (state, action) => {
-            //     state.jobDetail = action.payload.job;
-            //     state.loading = false;
-            //     state.error = null;
-            // })
+            .addCase(getJobDetailByClient.fulfilled, (state, action) => {
+                state.jobDetail = action.payload.job;
+                state.loading = false;
+                state.error = null;
+            })
             // .addCase(createFolderByJobId.fulfilled, (state, action) => {
             //     state.folderList.push(action.payload.folder),
             //         state.loading = false;

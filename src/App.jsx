@@ -9,6 +9,7 @@ import { refresh } from "./store/user/userSlice";
 import ClientLayout from "./components/client-layout";
 import ClientJobListPage from "./pages/client/job-list";
 import ClientJobNewPage from "./pages/client/job-new";
+import ClientJobEditPage from "./pages/client/job-edit";
 
 
 const App = () => {
@@ -49,7 +50,7 @@ const App = () => {
         },
         {
           path: '/client/jobs/:id',
-          element: <h1>Job Detail Page</h1>
+          element: <ClientJobEditPage />
         },
         {
           path: '/client/claims',

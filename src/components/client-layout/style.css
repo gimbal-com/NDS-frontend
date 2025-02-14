@@ -117,3 +117,21 @@
 .job-submit-button {
     margin-top: 8px;
 }
+
+.job-edit-content .job-edit-main {
+    display: flex;
+}
+
+.job-folders-container > span, .job-files-container > span {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.job-edit-main .job-folders-container {
+    width: 300px;
+    min-height: 300px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    margin-right: 16px;
+    padding-right: 16px;
+}
