@@ -13,6 +13,7 @@ import ClientJobEditPage from "./pages/client/job-edit";
 import PilotLayout from "./components/pilot-layout";
 import PilotJobListPage from "./pages/pilot/job-list";
 import PilotJobDetail from "./pages/pilot/job-detail";
+import ClientClaimListPage from "./pages/client/claim-list";
 
 const App = () => {
 
@@ -56,7 +57,7 @@ const App = () => {
         },
         {
           path: '/client/claims',
-          element: <h1>Claim List</h1>
+          element: <ClientClaimListPage />
         },
       ]
     },

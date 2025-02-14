@@ -9,7 +9,7 @@ const initialState = {
 }
 
 //Async Redux Action to call POST /api/jobs API to create a new job
-export const createClaimByPilot = createAsyncThunk('jobs/createClaimByPilot', async (claimData, { rejectWithValue }) => {
+export const createClaimByPilot = createAsyncThunk('claims/createClaimByPilot', async (claimData, { rejectWithValue }) => {
   try {
     const response = await axiosInstance.post(`/api/pilot/claim/new`, claimData);
     message.success(response.data.message);
@@ -20,9 +20,17 @@ export const createClaimByPilot = createAsyncThunk('jobs/createClaimByPilot', as
   }
 });
 
+export const getClaimListByClient = createAsyncThunk('claims/getClaimListByClient', async (clientId, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get(`/api/pilot/claims?clientId=${clientId}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue('Failed to fetch claim list');
+  }
+})
 
 const claimSlice = createSlice({
-  name: 'job',
+  name: 'claim',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -30,6 +38,11 @@ const claimSlice = createSlice({
       .addCase(createClaimByPilot.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
+      })
+      .addCase(getClaimListByClient.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.claimList = action.payload.claims;
       })
   }
 })
