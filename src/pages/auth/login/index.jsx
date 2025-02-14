@@ -17,7 +17,11 @@ const LoginPage = () => {
 
             if (login.fulfilled.match(response)) {
                 message.success("You are signed in successfully.");
-                // navigate('/pilot/job-list');
+                if(response.payload.user.accountType === 'pilot') {
+                    navigate(`/pilot/jobs`);
+                } else {
+                    navigate(`/client/jobs`);
+                }
             }
         } else {
             message.info("Please input all fields.");
