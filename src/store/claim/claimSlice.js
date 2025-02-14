@@ -20,6 +20,7 @@ export const createClaimByPilot = createAsyncThunk('jobs/createClaimByPilot', as
   }
 });
 
+
 const claimSlice = createSlice({
   name: 'job',
   initialState,
