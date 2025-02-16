@@ -14,6 +14,8 @@ import PilotLayout from "./components/pilot-layout";
 import PilotJobListPage from "./pages/pilot/job-list";
 import PilotJobDetail from "./pages/pilot/job-detail";
 import ClientClaimListPage from "./pages/client/claim-list";
+import AdminLayout from "./components/admin-layout";
+import AdminJobListPage from "./pages/admin/job-list";
 
 const App = () => {
 
@@ -72,6 +74,16 @@ const App = () => {
         {
           path: '/pilot/jobs/:id',
           element: <PilotJobDetail />
+        }
+      ]
+    },
+    {
+      path: '/admin',
+      element: <AdminLayout />,
+      children: [
+        {
+          path: '/admin/jobs',
+          element: <AdminJobListPage />
         }
       ]
     },

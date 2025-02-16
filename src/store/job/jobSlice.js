@@ -96,16 +96,24 @@ export const uploadJobFiles = createAsyncThunk('jobs/uploadFiles', async ({ jobI
     }
 });
 
-// export const getJobListByAdmin = createAsyncThunk('jobs/getJobListByAdmin', async (_, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.get(`/api/admin/jobs`);
-//         console.log(response.data);
+export const getJobListByAdmin = createAsyncThunk('jobs/getJobListByAdmin', async (status, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.post(`/api/admin/jobs`, { status });
+        return response.data;
+    } catch (err) {
+        return rejectWithValue(err);
+    }
+});
 
-//         return response.data;
-//     } catch (err: any) {
-//         return rejectWithValue(err);
-//     }
-// });
+export const updateJobStatusByAdmin = createAsyncThunk('jobs/updateJobStatusByAdmin', async ({status, jobId}, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.post(`/api/admin/jobs/${jobId}/status`, { status });
+        message.success(response.data.message);
+        return {status, jobId};
+    } catch (err) {
+        return rejectWithValue(err);
+    }
+});
 
 export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', async (_, { rejectWithValue }) => {
     try {
@@ -167,6 +175,12 @@ const jobSlice = createSlice({
                 state.jobDetail = action.payload.job;
                 state.loading = false;
                 state.error = null;
+            })
+            .addCase(getJobListByAdmin.fulfilled, (state, aciton) => {
+                state.jobList = aciton.payload.jobs
+            })
+            .addCase(updateJobStatusByAdmin.fulfilled, (state, action) => {
+                state.jobList = state.jobList.map(item => item._id === action.payload.jobId ? { ...item, j_status: action.payload.status} : item);
             })
             // .addCase(getJobListByAdmin.fulfilled, (state, action) => {
             //     state.jobList = action.payload.jobs;
