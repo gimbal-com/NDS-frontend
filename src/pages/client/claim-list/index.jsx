@@ -50,11 +50,11 @@ const ClientClaimListPage = () => {
             render: (_id, row) => {
                 return (
                     <Fragment>
-                        <Tooltip title="Approve Claim">
-                            <Button style={{marginRight: 8}} type="primary" size="small" icon={<CheckOutlined />} />
-                        </Tooltip>
                         <Tooltip title="See Claimer Profile">
                             <Button type="primary" color="pink" size="small" icon={<EyeOutlined />} />
+                        </Tooltip>
+                        <Tooltip title="Approve Claim">
+                            <Button style={{marginLeft: 8}} type="primary" size="small" icon={<CheckOutlined />} />
                         </Tooltip>
                     </Fragment>
                 )

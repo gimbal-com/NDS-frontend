@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 const initialState = {
     user: {},
     userList: [],
+    certList: [],
     loading: false,
     error: null,
 };
@@ -42,6 +43,35 @@ export const register = createAsyncThunk('user/auth/register', async ({username,
   }
 );
 
+export const getCertficateListByPilot = createAsyncThunk('user/cert/list', async (userId, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get(`/api/user/cert/${userId}`);
+    console.log(response.data);
+    
+    return response.data;
+  } catch(err) {
+    rejectWithValue(err);
+  }
+})
+
+export const uploadCertificateFileByPilot = createAsyncThunk('user/cert/upload', async ({file, name, userId}, { rejectWithValue }) => {
+  try {
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("name", name);
+
+    const response = await axiosInstance.post(`/api/user/cert/${userId}`, formData);
+    message.success(response.data.message);
+    return response.data;
+  } catch(err) {
+    message.error(err.response.data.message);
+    console.log(err.response);
+    
+    rejectWithValue(err);
+  }
+})
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -63,6 +93,12 @@ const authSlice = createSlice({
       })
       .addCase(refresh.fulfilled, (state, action) => {
         state.user = action.payload;
+      })
+      .addCase(getCertficateListByPilot.fulfilled, (state, action) => {
+        state.certList = action.payload.certs;
+      })
+      .addCase(uploadCertificateFileByPilot.fulfilled, (state, action) => {
+        state.certList.push(action.payload.cert);
       })
   },
 });

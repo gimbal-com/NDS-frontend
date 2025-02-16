@@ -12,8 +12,8 @@ const menuItems = [
         icon: <DashboardOutlined />
     },
     {
-        label: "Aplied Jobs",
-        key: 'claims',
+        label: "My Certificate",
+        key: 'certificates',
         icon: <AimOutlined />
     }
 ]
@@ -34,7 +34,7 @@ const PilotLayout = () => {
     const handleMenuItemClick = ({ item, key }) => {
         console.log(item, key);
 
-        navigate(`/client/${key}`);
+        navigate(`/pilot/${key}`);
     }
 
     const handleAuthMenuItemClick = ({ item, key }) => {

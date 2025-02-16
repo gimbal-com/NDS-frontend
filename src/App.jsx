@@ -16,6 +16,7 @@ import PilotJobDetail from "./pages/pilot/job-detail";
 import ClientClaimListPage from "./pages/client/claim-list";
 import AdminLayout from "./components/admin-layout";
 import AdminJobListPage from "./pages/admin/job-list";
+import PilotCertificateEdit from "./pages/pilot/certificate";
 
 const App = () => {
 
@@ -74,6 +75,10 @@ const App = () => {
         {
           path: '/pilot/jobs/:id',
           element: <PilotJobDetail />
+        },
+        {
+          path: '/pilot/certificates',
+          element: <PilotCertificateEdit />
         }
       ]
     },
