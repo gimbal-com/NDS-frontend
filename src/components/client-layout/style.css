@@ -146,3 +146,56 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.job-folder-list {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0px;
+}
+
+.job-folder-item {
+    display: flex;
+    align-items: center;
+    padding: 4px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 4px 0px;
+}
+
+.job-folder-item.active {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.job-folder-item:hover {
+    background-color: rgba(0,0,0,0.08);
+}
+
+.job-folder-item-name {
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.job-files-item {
+    height: 160px;
+    padding: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.job-files-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.job-detail-image-zoom {
+    width: 100%;
+    height: 500px;
+}
+
+.job-detail-image-zoom img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

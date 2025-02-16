@@ -43,59 +43,58 @@ export const getJobDetailByClient = createAsyncThunk('jobs/getJobDetailByClient'
     }
 });
 
-// //Async Redux Action to call GET /api/jobs API to get Folder by JobId
-// export const getFoldersByJobId = createAsyncThunk('jobs/getFoldersByJobId', async (jobId: number, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.get(`/api/client/jobs/${jobId}/folders`);
+//Async Redux Action to call GET /api/jobs API to get Folder by JobId
+export const getFoldersByJobId = createAsyncThunk('jobs/getFoldersByJobId', async (jobId, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/client/jobs/${jobId}/folders`);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue('Failed to get folders');
+    }
+});
 
-//         return response.data;
-//     } catch (error: any) {
-//         return rejectWithValue('Failed to get folders');
-//     }
-// });
+//Async Redux Action to call POST /api/jobs API to create Folder by JobId
+export const createFolderByJobId = createAsyncThunk('jobs/createFolderByJobId', async ({ jobId, name }, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.post(`/api/client/jobs/${jobId}/folders`, { name });
+        message.success(response.data.message);
+        return response.data;
+    } catch (error) {
+        message.error(error.response.data.message);
+        return rejectWithValue('Failed to create folder');
+    }
+});
 
-// //Async Redux Action to call POST /api/jobs API to create Folder by JobId
-// export const createFolderByJobId = createAsyncThunk('jobs/createFolderByJobId', async ({ jobId, name }: { jobId: number, name: string }, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.post(`/api/client/jobs/${jobId}/folders`, { name });
-//         toast({ description: response.data.message, variant: 'default' });
-//         return response.data;
-//     } catch (error: any) {
-//         toast({ description: error.response.data.message, variant: 'destructive' });
-//         return rejectWithValue('Failed to create folder');
-//     }
-// });
+//Async Redux Action to call GET /api/jobs API to get Files by JobId and FolderId
+export const getFilesByJobIdAndFolderId = createAsyncThunk('jobs/getFilesByJobIdAndFolderId', async ({ jobId, folderId }, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/client/jobs/${jobId}/folders/${folderId}/files`);
+        return response.data;
+    } catch (error) {
+        return rejectWithValue('Failed to get files');
+    }
+});
 
-// //Async Redux Action to call GET /api/jobs API to get Files by JobId and FolderId
-// export const getFilesByJobIdAndFolderId = createAsyncThunk('jobs/getFilesByJobIdAndFolderId', async ({ jobId, folderId }: { jobId: number, folderId: number }, { rejectWithValue }) => {
-//     try {
-//         const response = await axiosInstance.get(`/api/client/jobs/${jobId}/folders/${folderId}/files`);
-//         return response.data;
-//     } catch (error: any) {
-//         return rejectWithValue('Failed to get files');
-//     }
-// });
+//Async Redux Action to call POST /api/jobs API to upload files
+export const uploadJobFiles = createAsyncThunk('jobs/uploadFiles', async ({ jobId, folderId, files }, { rejectWithValue }) => {
+    try {
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('files', file);
+        });
 
-// //Async Redux Action to call POST /api/jobs API to upload files
-// export const uploadFiles = createAsyncThunk('jobs/uploadFiles', async ({ jobId, folderId, files }: { jobId: number, folderId: number, files: File[] }, { rejectWithValue }) => {
-//     try {
-//         const formData = new FormData();
-//         files.forEach(file => {
-//             formData.append('files', file);
-//         });
-
-//         const response = await axiosInstance.post(`/api/client/jobs/${jobId}/folders/${folderId}/files`, formData, {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data'
-//             }
-//         });
-//         toast({ description: response.data.message, variant: 'default' });
-//         return response.data;
-//     } catch (error: any) {
-//         toast({ description: error.response.data.message, variant: 'destructive' });
-//         return rejectWithValue('Failed to upload files');
-//     }
-// });
+        const response = await axiosInstance.post(`/api/client/jobs/${jobId}/folders/${folderId}/files`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        message.success(response.data.message);
+        return response.data;
+    } catch (error) {
+        toast({ description: error.response.data.message, variant: 'destructive' });
+        return rejectWithValue('Failed to upload files');
+    }
+});
 
 // export const getJobListByAdmin = createAsyncThunk('jobs/getJobListByAdmin', async (_, { rejectWithValue }) => {
 //     try {
@@ -147,24 +146,20 @@ const jobSlice = createSlice({
                 state.loading = false;
                 state.error = null;
             })
-            // .addCase(createFolderByJobId.fulfilled, (state, action) => {
-            //     state.folderList.push(action.payload.folder),
-            //         state.loading = false;
-            // })
-            // .addCase(getFoldersByJobId.fulfilled, (state, action) => {
-            //     state.loading = false;
-            //     state.folderList = action.payload.folders;
-            // })
-            // .addCase(uploadFiles.fulfilled, (state, action) => {
-            //     state.loading = false;
-            // })
-            // .addCase(getFilesByJobIdAndFolderId.fulfilled, (state, action) => {
-            //     state.loading = false;
-            //     state.fileList = action.payload.files;
-            // })
-            // .addCase(getJobListByAdmin.fulfilled, (state, action) => {
-            //     state.jobList = action.payload.jobs;
-            // })
+            .addCase(createFolderByJobId.fulfilled, (state, action) => {
+                state.loading = false;
+            })
+            .addCase(getFoldersByJobId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.folderList = action.payload.folders;
+            })
+            .addCase(getFilesByJobIdAndFolderId.fulfilled, (state, action) => {
+                state.loading = false;
+                state.fileList = action.payload.files;
+            })
+            .addCase(uploadJobFiles.fulfilled, (state, action) => {
+                state.loading = false;
+            })
             .addCase(getJobListByPilot.fulfilled, (state, action) => {
                 state.jobList = action.payload.jobs;
             })
@@ -173,6 +168,9 @@ const jobSlice = createSlice({
                 state.loading = false;
                 state.error = null;
             })
+            // .addCase(getJobListByAdmin.fulfilled, (state, action) => {
+            //     state.jobList = action.payload.jobs;
+            // })
     }
 })
 
