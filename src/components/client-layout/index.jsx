@@ -1,4 +1,4 @@
-import { AimOutlined, DashboardOutlined, LogoutOutlined } from "@ant-design/icons";
+import { AimOutlined, DashboardOutlined, TeamOutlined, LogoutOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -16,6 +16,11 @@ const menuItems = [
         label: "Claim Requests",
         key: 'claims',
         icon: <AimOutlined />
+    },
+    {
+        label: "Jobs In Progress",
+        key: "jobs-in-progress",
+        icon: <TeamOutlined />
     }
 ]
 

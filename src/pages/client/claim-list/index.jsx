@@ -1,13 +1,25 @@
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getClaimListByClient } from "../../../store/claim/claimSlice";
-import { Button, Table, Tooltip } from "antd";
+import { approveClaimByClient, getClaimListByClient } from "../../../store/claim/claimSlice";
+import { Button, Modal, Row, Col, Table, Tooltip } from "antd";
 import { CheckOutlined, EyeOutlined } from "@ant-design/icons";
 
 const ClientClaimListPage = () => {
     const dispatch = useDispatch();
     const claimList = useSelector(store => store.claim.claimList);
     const userId = useSelector(store => store.user.user._id);
+
+    const [isPilotInfoModalOpen, setIsPilotInfoModalOpen] = useState(false);
+    const [currentPilot, setCurrentPilot] = useState();
+
+    const handleViewInfoClick = (claimerInfo) => {
+        setCurrentPilot(claimerInfo);
+        setIsPilotInfoModalOpen(true);
+    }
+
+    const handleApproveClaim = (claimId, jobId, claimerId) => {
+        dispatch(approveClaimByClient({claimId, jobId, claimerId}));
+    }
 
     useEffect(() => {
         if(userId) {
@@ -51,10 +63,10 @@ const ClientClaimListPage = () => {
                 return (
                     <Fragment>
                         <Tooltip title="See Claimer Profile">
-                            <Button type="primary" color="pink" size="small" icon={<EyeOutlined />} />
+                            <Button onClick={() => handleViewInfoClick(row.c_claimer)} type="primary" color="pink" size="small" icon={<EyeOutlined />} />
                         </Tooltip>
                         <Tooltip title="Approve Claim">
-                            <Button style={{marginLeft: 8}} type="primary" size="small" icon={<CheckOutlined />} />
+                            <Button style={{marginLeft: 8}} type="primary" size="small" icon={<CheckOutlined />} onClick={() => handleApproveClaim(_id, row.c_job._id, row.c_claimer._id)} />
                         </Tooltip>
                     </Fragment>
                 )
@@ -75,6 +87,39 @@ const ClientClaimListPage = () => {
                     rowKey={row => row._id}
                 />
             </div>
+            <Modal 
+                title="Claimer Detail" 
+                open={isPilotInfoModalOpen} 
+                onCancel={() => setIsPilotInfoModalOpen(false)} 
+                onOk={() => setIsPilotInfoModalOpen(false)} 
+                width={1000}
+            >
+                <div className="claimer-info-container">
+                    <div className="claimer-info-item">
+                        <label>Username: </label>
+                        <span>{currentPilot?.u_username}</span>
+                    </div>
+                    <div className="claimer-info-item">
+                        <label>Email: </label>
+                        <span>{currentPilot?.u_email}</span>
+                    </div>
+                    <div className="claimer-info-item">
+                        <Row>
+                        {
+                            currentPilot?.u_certs.map(item => {
+                                return (
+                                    <Col span={6} key={item._id}>
+                                        <div className="claimer-info-item-image">
+                                            <img src={`${import.meta.env.VITE_PUBLIC_API_URL}/images/certs/${item.path}`} />
+                                        </div>
+                                    </Col>
+                                )
+                            })
+                        }
+                        </Row>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

@@ -17,6 +17,7 @@ import ClientClaimListPage from "./pages/client/claim-list";
 import AdminLayout from "./components/admin-layout";
 import AdminJobListPage from "./pages/admin/job-list";
 import PilotCertificateEdit from "./pages/pilot/certificate";
+import ClientJobListInProgressPage from "./pages/client/jobs-in-progress";
 
 const App = () => {
 
@@ -62,6 +63,10 @@ const App = () => {
           path: '/client/claims',
           element: <ClientClaimListPage />
         },
+        {
+          path: '/client/jobs-in-progress',
+          element: <ClientJobListInProgressPage />
+        }
       ]
     },
     {

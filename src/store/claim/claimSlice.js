@@ -22,10 +22,21 @@ export const createClaimByPilot = createAsyncThunk('claims/createClaimByPilot', 
 
 export const getClaimListByClient = createAsyncThunk('claims/getClaimListByClient', async (clientId, { rejectWithValue }) => {
   try {
-    const response = await axiosInstance.get(`/api/pilot/claims?clientId=${clientId}`);
+    const response = await axiosInstance.get(`/api/client/claims?clientId=${clientId}`);
     return response.data;
   } catch (error) {
     return rejectWithValue('Failed to fetch claim list');
+  }
+})
+
+export const approveClaimByClient = createAsyncThunk('claims/approveClaimByClient', async ({jobId, claimerId, claimId}, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.post(`/api/client/claim/approve`, {jobId, claimerId, claimId});
+    message.success(response.data.message);
+    return { claimId };
+  } catch (error) {
+    message.error(error.response.data.message)
+    return rejectWithValue(error);
   }
 })
 
@@ -43,6 +54,9 @@ const claimSlice = createSlice({
         state.loading = false;
         state.error = null;
         state.claimList = action.payload.claims;
+      })
+      .addCase(approveClaimByClient.fulfilled, (state, action) => {
+        state.claimList = state.claimList.filter(item => item._id !== action.payload.claimId);
       })
   }
 })

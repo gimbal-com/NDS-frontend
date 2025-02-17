@@ -199,3 +199,21 @@
     height: 100%;
     object-fit: contain;
 }
+
+.claimer-info-item {
+    margin: 8px 0px;
+}
+
+.claimer-info-item-image {
+    width: 100%;
+    height: 160px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.claimer-info-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

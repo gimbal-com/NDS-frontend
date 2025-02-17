@@ -33,6 +33,15 @@ export const getJobListByClient = createAsyncThunk('jobs/getJobList', async (use
     }
 });
 
+export const getJobListInProgressByClient = createAsyncThunk('jobs/getJobListInProgreeByClient', async (userId, { rejectWithValue }) => {
+    try {
+        const response = await axiosInstance.get(`/api/client/jobs/isdoing/${userId}`);
+        return response.data;
+    } catch(err) {
+        return rejectWithValue(err);
+    }
+})
+
 //Async Redux Action to call GET /api/jobs API to get jobDetail
 export const getJobDetailByClient = createAsyncThunk('jobs/getJobDetailByClient', async (jobId, { rejectWithValue }) => {
     try {
@@ -181,6 +190,9 @@ const jobSlice = createSlice({
             })
             .addCase(updateJobStatusByAdmin.fulfilled, (state, action) => {
                 state.jobList = state.jobList.map(item => item._id === action.payload.jobId ? { ...item, j_status: action.payload.status} : item);
+            })
+            .addCase(getJobListInProgressByClient.fulfilled, (state, action) => {
+                state.jobList = action.payload.jobs;
             })
             // .addCase(getJobListByAdmin.fulfilled, (state, action) => {
             //     state.jobList = action.payload.jobs;
