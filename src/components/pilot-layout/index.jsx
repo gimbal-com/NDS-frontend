@@ -1,7 +1,8 @@
 import { AimOutlined, DashboardOutlined, LogoutOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Dropdown, Menu } from "antd";
-import { useSelector } from "react-redux";
+import { Avatar, Dropdown, Menu } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import { logout } from "../../store/user/userSlice";
 
 import './style.css';
 
@@ -30,6 +31,7 @@ const PilotLayout = () => {
     const navigate = useNavigate();
 
     const userInfo = useSelector(store => store.user.user);
+    const dispatch = useDispatch();
 
     const handleMenuItemClick = ({ item, key }) => {
         console.log(item, key);
@@ -37,8 +39,11 @@ const PilotLayout = () => {
         navigate(`/pilot/${key}`);
     }
 
-    const handleAuthMenuItemClick = ({ item, key }) => {
-        console.log(item, key);
+    const handleAuthMenuItemClick = ({item, key}) => {
+        if(key === 'logout') {
+            dispatch(logout());
+            navigate('/');
+        }
     }
 
     return (
