@@ -19,6 +19,8 @@ const ClientJobNewPage = () => {
     const [budget, setBudget] = useState(null);
     const mapNode = useRef(null);
 
+    const addressInputRef = useRef(null);
+
     const dispatch = useDispatch();
     const user = useSelector(store => store.user.user);
 
@@ -37,7 +39,6 @@ const ClientJobNewPage = () => {
 
     const handleAddressChange = (e) => {
         let addr = e.target.value;
-        console.log("daddsdfsfsf", addr);
 
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(addr)}.json?country=us&access_token=${import.meta.env.VITE_PUBLIC_MAPBOX_TOKEN}`;
 
@@ -55,8 +56,14 @@ const ClientJobNewPage = () => {
                         const completion = firstSuggestion.substring(address.length);
 
                         // Don't overwrite the user's current input; append only the completed part
+
                         setAddress(address + completion);
-                        console.log("sdfsfsfs", completion);
+                        
+                        requestAnimationFrame(() => {
+                            console.log(address?.length, address?.length + completion.length);
+                            
+                            addressInputRef.current.setSelectionRange(address?.length, address?.length + completion.length);
+                          });
 
                         // Restore the cursor position to where the user was typing
                         map.flyTo({ center: features[0].geometry.coordinates, zoom: 10 });
@@ -151,8 +158,9 @@ const ClientJobNewPage = () => {
                     <Input
                         className="job-input"
                         placeholder="Address"
-                        value={address}
                         onChange={handleAddressChange}
+                        value={address}
+                        ref={addressInputRef}
                     />
                     <Button
                         type="primary"
