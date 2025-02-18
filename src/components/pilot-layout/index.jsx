@@ -13,7 +13,7 @@ const menuItems = [
         icon: <DashboardOutlined />
     },
     {
-        label: "My Certificate",
+        label: "Profile",
         key: 'certificates',
         icon: <AimOutlined />
     }

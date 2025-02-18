@@ -72,6 +72,27 @@ export const uploadCertificateFileByPilot = createAsyncThunk('user/cert/upload',
   }
 })
 
+export const updatePilotProfile = createAsyncThunk('pilot/profile', async (userData, {rejectWithValue}) => {
+  try {
+    const response = await axiosInstance.post(`/api/pilot/profile`, userData);
+    message.success(response.data.message);
+
+    return response.data;
+  } catch (error) {
+    message.error(error.response.data.message);
+  } 
+})
+
+export const getPilotProfile = createAsyncThunk('pilot/profile/get', async (userId, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.get(`/api/pilot/profile/${userId}`);
+
+    return response.data;
+  } catch (error) {
+    message.error(error.response.data.message);
+  }
+})
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -99,6 +120,9 @@ const authSlice = createSlice({
       })
       .addCase(uploadCertificateFileByPilot.fulfilled, (state, action) => {
         state.certList.push(action.payload.cert);
+      })
+      .addCase(getPilotProfile.fulfilled, (state, action) => {
+        state.user = action.payload.user;
       })
   },
 });

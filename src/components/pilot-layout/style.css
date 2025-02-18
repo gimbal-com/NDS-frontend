@@ -172,3 +172,37 @@
     height: 100%;
     object-fit: contain;
 }
+
+.pilot-profile-container {
+    display: flex;
+    width: 100%;
+}
+
+.pilot-profile-detail {
+    width: 400px;
+    margin-right: 16px;
+}
+
+.pilot-profile-address-map {
+    flex-grow: 1;
+}
+
+.pilot-address-map-container {
+    width: 100%;
+    height: 300px;
+}
+
+.profile-address-radius {
+    margin-top: 16px;
+}
+
+.pilot-certificate-header {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pilot-profile-detail-item {
+    margin: 12px 0px;
+}

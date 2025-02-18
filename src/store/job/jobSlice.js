@@ -124,9 +124,9 @@ export const updateJobStatusByAdmin = createAsyncThunk('jobs/updateJobStatusByAd
     }
 });
 
-export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', async (_, { rejectWithValue }) => {
+export const getJobListByPilot = createAsyncThunk('jobs/getJobListByPilot', async (userId, { rejectWithValue }) => {
     try {
-        const response = await axiosInstance.get(`/api/pilot/jobs`);
+        const response = await axiosInstance.get(`/api/pilot/jobs/${userId}`);
         console.log(response.data);
 
         return response.data;

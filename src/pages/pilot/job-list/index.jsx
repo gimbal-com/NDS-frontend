@@ -44,7 +44,7 @@ const PilotJobListPage = () => {
 
   useEffect(() => {
     if (userId) {
-      dispatch(getJobListByPilot());
+      dispatch(getJobListByPilot(userId));
     }
   }, [dispatch, userId]);
 

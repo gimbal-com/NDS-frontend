@@ -3,7 +3,6 @@ import AuthLayout from "./components/auth-layout";
 import Redirect from "./components/common/redirect";
 import RegisterPage from "./pages/auth/register";
 import LoginPage from "./pages/auth/login";
-import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { refresh } from "./store/user/userSlice";
 import ClientLayout from "./components/client-layout";
@@ -16,8 +15,8 @@ import PilotJobDetail from "./pages/pilot/job-detail";
 import ClientClaimListPage from "./pages/client/claim-list";
 import AdminLayout from "./components/admin-layout";
 import AdminJobListPage from "./pages/admin/job-list";
-import PilotCertificateEdit from "./pages/pilot/certificate";
 import ClientJobListInProgressPage from "./pages/client/jobs-in-progress";
+import PilotProfileEdit from "./pages/pilot/profile";
 
 const App = () => {
 
@@ -83,7 +82,7 @@ const App = () => {
         },
         {
           path: '/pilot/certificates',
-          element: <PilotCertificateEdit />
+          element: <PilotProfileEdit />
         }
       ]
     },
