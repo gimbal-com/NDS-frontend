@@ -58,12 +58,14 @@ const ClientJobNewPage = () => {
                         // Don't overwrite the user's current input; append only the completed part
 
                         setAddress(address + completion);
+
+                        const cursorPosition = address.length;
                         
                         requestAnimationFrame(() => {
                             console.log(address?.length, address?.length + completion.length);
                             
-                            addressInputRef.current.setSelectionRange(address?.length, address?.length + completion.length);
-                          });
+                            addressInputRef.current.setSelectionRange(cursorPosition, cursorPosition + completion.length);                          
+                        });
 
                         // Restore the cursor position to where the user was typing
                         map.flyTo({ center: features[0].geometry.coordinates, zoom: 10 });
