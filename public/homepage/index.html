@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.10.0/mapbox-gl.js"></script>
+</head>
+
+<body>
+    <div class="w-full">
+        <div class="bg-[#2e2e2e] h-48 w-full">
+            <div class="container h-full mx-auto flex items-center justify-between py-12">
+                <div class="w-80 h-full">
+                    <img src="./assets/images/logo.png" class="h-full w-full object-contain" />
+                </div>
+            </div>
+        </div>
+        <div class="h-[700px] w-full bg-cover  bg-center" style="background-image: url(./assets/images/back.png);">
+            <div class="container mx-auto flex flex-col justify-center items-center h-full">
+                <h1 class="text-[80px] text-[#f0f0f0] font-black">
+                    Affordable Aerial <br />
+                    Solutions for <br />
+                    Your Industry
+                </h1>
+                <div class="mt-20 cursor-pointer animate-bounce" id="goto-bottom">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-12 text-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white w-full pt-8 pb-32">
+            <div class="container mx-auto flex flex-col gap-[32px]">
+                <div class="flex flex-col items-center justify-center">
+                    <h1 class="text-[#605e5e] text-[80px] font-black">Our Solution</h1>
+                    <h4 class="text-[#605e5e] text-[24px] text-center">
+                        We've makde getting aerial data easily accessible <br />
+                        by streamlining the process for clients to<br />
+                        effortlessly create job requests for our network <br />
+                        of expert drone pilots
+                    </h4>
+                </div>
+                <div class="flex flex-col items-center justify-center" id="pilot-section">
+                    <h1 class="text-[#605e5e] text-[80px] font-black text-center">
+                        Our Fleet of Expert <br />
+                        Drone Pilots
+                    </h1>
+                    <div class="w-full h-[600px] my-8">
+                        <div id="map" class="h-full w-full"></div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <h1 class="text-black text-[32px] font-bold mb-4">
+                        Industries we excel in
+                    </h1>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="flex flex-col gap-8">
+                            <h3 class="text-black text-[24px] font-semibold">Construction</h3>
+                            <p class="text-[14px] text-[#605e5e] font-bold">
+                                Aerial data is quickly becoming the moust powerful tool when making decisions and
+                                documenting the condition of a site.
+                            </p>
+                            <div class="text-2xl font-bold cursor-pointer">Learn More</div>
+                        </div>
+                        <div class="flex flex-col gap-8">
+                            <h3 class="text-black text-[24px] font-semibold">Real Estate</h3>
+                            <p class="text-[14px] text-[#605e5e] font-bold">
+                                We can privde you with a full suite of aerial imagery highlighting your property for
+                                marketing uses
+                            </p>
+                            <div class="text-2xl font-bold cursor-pointer">Learn More</div>
+                        </div>
+                        <div class="flex flex-col gap-8">
+                            <h3 class="text-black text-[24px] font-semibold">Property Management</h3>
+                            <p class="text-[14px] text-[#605e5e] font-bold">
+                                Get a snapshot of the current condition of a property by utilizing drone imagery to
+                                assess the condition of roofs, parking lots, and more.
+                            </p>
+                            <div class="text-2xl font-bold cursor-pointer">Learn More</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-[#2e2e2e] h-20 w-full">
+        </div>
+    </div>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
