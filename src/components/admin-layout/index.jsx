@@ -1,4 +1,4 @@
-import { AimOutlined, DashboardOutlined, LogoutOutlined } from "@ant-design/icons";
+import { AimOutlined, DashboardOutlined, LogoutOutlined, WechatWorkFilled } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -16,6 +16,11 @@ const menuItems = [
         label: "User Management",
         key: 'users',
         icon: <AimOutlined />
+    },
+    {
+        label: "Package Management",
+        key: 'packages',
+        icon: <WechatWorkFilled />
     }
 ]
 

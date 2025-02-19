@@ -17,6 +17,7 @@ import AdminLayout from "./components/admin-layout";
 import AdminJobListPage from "./pages/admin/job-list";
 import ClientJobListInProgressPage from "./pages/client/jobs-in-progress";
 import PilotProfileEdit from "./pages/pilot/profile";
+import AdminPackageList from "./pages/admin/package/list/list";
 
 const App = () => {
 
@@ -93,7 +94,11 @@ const App = () => {
         {
           path: '/admin/jobs',
           element: <AdminJobListPage />
-        }
+        },
+        {
+          path: '/admin/packages',
+          element: <AdminPackageList />
+        },
       ]
     },
     {
